@@ -4,8 +4,8 @@ import lotoImg from "../../assets/logo.png";
 
 const Logo = () => {
     return (
-        <div>
-            <img className='w-40 p-0 m-0' src={lotoImg} alt="" />
+        <div className='p-0 m-0 flex justify-center items-center'>
+            <img className='w-20 md:w-40 p-0 m-0' src={lotoImg} alt="" />
         </div>
     );
 };

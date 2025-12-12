@@ -8,7 +8,7 @@ const Navbar = () => {
     <>
       <li>
         <NavLink
-          className="border border-[#14C2ED] rounded-sm font-semibold text-[#14C2ED]"
+          className="border border-primary rounded-sm font-semibold text-primary"
           to="/"
         >
           Home
@@ -21,10 +21,10 @@ const Navbar = () => {
   );
 
   return (
-    <div className="navbar bg-base-100 shadow-sm">
+    <div className="navbar bg-[#2A2E37] shadow-xs shadow-neutral">
       <div className="navbar-start">
         <div className="dropdown">
-          <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
+          <div tabIndex={0} role="button" className="btn btn-ghost md:hidden">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-5 w-5"
@@ -45,20 +45,20 @@ const Navbar = () => {
             tabIndex="-1"
             className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
           >
-           {navLinks}
+            {navLinks}
           </ul>
         </div>
-        <a className="btn btn-ghost text-xl">
+        <a className="btn btn-ghost">
           <Logo></Logo>
         </a>
       </div>
       <div className="navbar-center hidden lg:flex">
-        <ul className="menu menu-horizontal px-1">
-         {navLinks}
-        </ul>
+        <ul className="menu menu-horizontal px-1">{navLinks}</ul>
       </div>
       <div className="navbar-end">
-        <ThemeToggle></ThemeToggle>
+        <div className="hidden md:block">
+          <ThemeToggle></ThemeToggle>
+        </div>
       </div>
     </div>
   );

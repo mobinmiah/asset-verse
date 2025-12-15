@@ -32,11 +32,9 @@ const Navbar = () => {
   );
 
   return (
-    <header className="sticky top-0 z-50">
-      <nav className="navbar bg-base-100 shadow-xs shadow-neutral px-4 md:px-8 lg:px-12">
-        {/* LEFT */}
+    <div className="sticky top-0 z-50">
+      <nav className="navbar bg-base-100 shadow-xs shadow-neutral px-4 md:px-8 lg:px-12 rounded-sm">
         <div className="navbar-start gap-3">
-          {/* Mobile Menu */}
           <div className="dropdown">
             <label
               tabIndex={0}
@@ -58,7 +56,6 @@ const Navbar = () => {
                 />
               </svg>
             </label>
-
             <ul
               tabIndex={0}
               className="menu menu-sm dropdown-content mt-3 p-3 shadow bg-base-100 rounded-box w-56 max-w-[90vw]"
@@ -69,18 +66,13 @@ const Navbar = () => {
 
           <Logo />
         </div>
-
-        {/* CENTER */}
         <div className="navbar-center hidden md:flex">
           <ul className="menu menu-horizontal gap-2 font-medium">{navLinks}</ul>
         </div>
-
-        {/* RIGHT */}
         <div className="navbar-end gap-4">
           <div className="hidden md:block">
             <ThemeToggle />
           </div>
-
           {user ? (
             <div className="flex items-center gap-3">
               <Link
@@ -100,7 +92,6 @@ const Navbar = () => {
                   </div>
                 )}
               </Link>
-
               <button
                 onClick={logOut}
                 className="btn btn-primary hidden md:block"
@@ -115,7 +106,7 @@ const Navbar = () => {
           )}
         </div>
       </nav>
-    </header>
+    </div>
   );
 };
 

@@ -1,58 +1,46 @@
 import React, { useState } from "react";
 import { Helmet } from "react-helmet";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import useAuth from "../../../hooks/useAuth";
 import { useForm } from "react-hook-form";
 import useAxios from "../../../hooks/useAxios";
+import { FaEye, FaEyeSlash } from "react-icons/fa6";
 
 const RegisterEmployee = () => {
-   const axios = useAxios();
-   const { registerUser, updateUserProfile } = useAuth();
-   const [passType, setPassType] = useState(false);
+  const axios = useAxios();
+  const navigate = useNavigate();
+  const { registerUser, updateUserProfile } = useAuth();
+  const [passType, setPassType] = useState(false);
 
-   const {
-     register,
-     handleSubmit,
-     formState: { errors },
-   } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
 
-   const handleRegistration = async (data) => {
-     try {
-       data.role = "hr";
-       data.packageLimit = 5;
-       data.currentEmployees = 0;
-       data.subscription = "basic";
+  const handleRegistration = async (data) => {
+    try {
+      data.role = "employee";
+      await registerUser(data.email, data.password);
+      await updateUserProfile({
+        displayName: data.name,
+        photoURL: data.companyLogo,
+      });
+      const hrInfo = {
+        name: data.name,
+        email: data.email,
+        role: "employee",
+        dateOfBirth: data.dateOfBirth,
+        createdAt: new Date(),
+      };
 
-       // 1️⃣ Firebase auth
-       await registerUser(data.email, data.password);
-
-       // 2️⃣ Update Firebase profile (ONLY name + photo)
-       await updateUserProfile({
-         displayName: data.name,
-         photoURL: data.companyLogo,
-       });
-
-       // 3️⃣ Save HR info to MongoDB
-       const hrInfo = {
-         name: data.name,
-         email: data.email,
-         role: "hr",
-         companyName: data.companyName,
-         companyLogo: data.companyLogo,
-         dateOfBirth: data.dateOfBirth,
-         packageLimit: 5,
-         currentEmployees: 0,
-         subscription: "basic",
-         createdAt: new Date(),
-       };
-
-       const res = await axios.post("/users", hrInfo);
-       console.log("User saved:", res.data);
-     } catch (error) {
-       console.error(error);
-     }
-   };
-
+      const res = await axios.post("/users", hrInfo);
+      console.log("User saved:", res.data);
+      navigate(location?.state || "/");
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <div className="min-h-screen flex justify-center items-center px-4 py-10">
@@ -68,32 +56,73 @@ const RegisterEmployee = () => {
           </Link>
         </p>
 
-        <form onSubmit={handleSubmit(handleRegistration)} className="card-body px-0">
+        <form
+          onSubmit={handleSubmit(handleRegistration)}
+          className="card-body px-0"
+        >
           <fieldset className="fieldset flex flex-col gap-3">
-            <label {...register("name")} className="label">
-              Name
-            </label>
-            <input
-              type="text"
-              className="input outline-none border-primary w-full"
-              placeholder="Full Name"
-            />
-            <label {...register("email")} className="label">
-              Email
-            </label>
-            <input
-              type="email"
-              className="input outline-none border-primary w-full"
-              placeholder="Email"
-            />
+            {/* name */}
+            <div>
+              {" "}
+              <label className="label">Name</label>
+              <input
+                {...register("name", { required: true })}
+                type="text"
+                className="input outline-none border-primary w-full"
+                placeholder="Full Name"
+              />
+              {errors.name?.type === "required" && (
+                <p className={`font-medium text-error!`}>Name is Required</p>
+              )}
+            </div>
+            {/* email */}
+            <div>
+              {" "}
+              <label className="label">Email</label>
+              <input
+                {...register("email", { required: true })}
+                type="email"
+                className="input outline-none border-primary w-full"
+                placeholder="Your Email"
+              />
+              {errors.email?.type === "required" && (
+                <p className={`font-medium text-error!`}>Email is Required</p>
+              )}
+            </div>
 
-            <label className="label">Password</label>
-            <input
-              {...register("password")}
-              type="password"
-              className="input outline-none border-primary w-full"
-              placeholder="Password"
-            />
+            {/* password */}
+            <div>
+              <label className="label">Password</label>
+              <input
+                {...register("password", { required: true })}
+                type={passType ? "text" : "password"}
+                className="input outline-none border-primary w-full"
+                placeholder="Password"
+              />
+              <div
+                className="absolute bottom-56 right-13 text-xl z-10"
+                onClick={() => setPassType(!passType)}
+              >
+                {passType ? <FaEyeSlash></FaEyeSlash> : <FaEye />}
+              </div>
+              {errors.password?.type === "required" && (
+                <p className={`font-medium text-error!`}>
+                  Password is Required
+                </p>
+              )}
+            </div>
+            {/* date of birth */}
+            <div>
+              <label className="label">Date of Birth</label>
+              <input
+                {...register("dateOfBirth", { required: true })}
+                type="date"
+                className="input outline-none border-primary w-full"
+              />
+              {errors.dateOfBirth?.type === "required" && (
+                <p className={`font-medium text-error!`}>Date is Required</p>
+              )}
+            </div>
 
             <button className="btn btn-primary w-full mt-2">Register</button>
 

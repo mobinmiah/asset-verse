@@ -26,9 +26,8 @@ const Login = () => {
          const res = await axios.post("/jwt", {
            email: result.user.email,
          });
-
          localStorage.setItem("access-token", res.data.token);
-      navigate("/"); // or role-based redirect later
+      navigate("/");
     } catch (err) {
       console.error(err);
     }
@@ -39,7 +38,6 @@ const Login = () => {
       <Helmet>
         <title>Login | AssetVerse</title>
       </Helmet>
-
       <form
         onSubmit={handleSubmit(handleLogin)}
         className="card bg-base-100 w-full max-w-sm sm:max-w-md shadow-lg shadow-neutral rounded-xl p-6"
@@ -47,23 +45,25 @@ const Login = () => {
         <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-primary text-center">
           Login
         </h2>
-
         <div className="card-body px-0">
           <fieldset className="fieldset flex flex-col gap-3">
-            {/* Email */}
-            <label className="label">Email</label>
-            <input
-              {...register("email", { required: true })}
-              type="email"
-              className="input outline-none border-primary w-full"
-              placeholder="Email"
-            />
-            {errors.email && (
-              <p className="text-error text-sm">Email is required</p>
-            )}
+            {/* email */}
+            <div>
+              {" "}
+              <label className="label">Email</label>
+              <input
+                {...register("email", { required: true })}
+                type="email"
+                className="input outline-none border-primary w-full"
+                placeholder="Your Email"
+              />
+              {errors.email?.type === "required" && (
+                <p className={`font-medium text-error!`}>Email is Required</p>
+              )}
+            </div>
 
-            {/* Password */}
-            <div className="relative">
+            {/* password */}
+            <div>
               <label className="label">Password</label>
               <input
                 {...register("password", { required: true })}
@@ -71,12 +71,17 @@ const Login = () => {
                 className="input outline-none border-primary w-full"
                 placeholder="Password"
               />
-              <span
-                className="absolute right-3 top-10 cursor-pointer text-xl"
+              <div
+                className="absolute bottom-52 right-13 text-xl z-10"
                 onClick={() => setPassType(!passType)}
               >
-                {passType ? <FaEyeSlash /> : <FaEye />}
-              </span>
+                {passType ? <FaEyeSlash></FaEyeSlash> : <FaEye />}
+              </div>
+              {errors.password?.type === "required" && (
+                <p className={`font-medium text-error!`}>
+                  Password is Required
+                </p>
+              )}
             </div>
             {errors.password && (
               <p className="text-error text-sm">Password is required</p>

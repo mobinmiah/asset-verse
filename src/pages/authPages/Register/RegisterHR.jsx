@@ -25,16 +25,12 @@ const RegisterHR = () => {
       data.currentEmployees = 0;
       data.subscription = "basic";
 
-      // 1️⃣ Firebase auth
       await registerUser(data.email, data.password);
-
-      // 2️⃣ Update Firebase profile (ONLY name + photo)
       await updateUserProfile({
         displayName: data.name,
         photoURL: data.companyLogo,
       });
 
-      // 3️⃣ Save HR info to MongoDB
       const hrInfo = {
         name: data.name,
         email: data.email,
@@ -50,7 +46,7 @@ const RegisterHR = () => {
 
       const res = await axios.post("/users", hrInfo);
       console.log("User saved:", res.data);
-      navigate("/");
+      navigate(location?.state || "/");
     } catch (error) {
       console.error(error);
     }
@@ -70,7 +66,6 @@ const RegisterHR = () => {
             Employee
           </Link>
         </p>
-        {/* registration form */}
         <form
           onSubmit={handleSubmit(handleRegistration)}
           className="card-body px-0"

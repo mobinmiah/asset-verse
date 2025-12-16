@@ -1,9 +1,21 @@
-import React from 'react';
+import React from "react";
+import useRole from "../../../hooks/useRole";
+import HRDashboard from "./HRDashboard";
+import EmployeeDashboard from "./EmployeeDashboard";
+import Loading from "../../../components/Loading/Loading";
 
 const DashboardHome = () => {
-    return (
-     <div><h2>dashboard home</h2></div>
-    );
+  const { role, roleLoading } = useRole();
+
+  if (roleLoading) {
+    return <Loading></Loading>;
+  }
+
+  if (role === "hr") {
+    return <HRDashboard></HRDashboard>;
+  } else {
+    return <EmployeeDashboard></EmployeeDashboard>;
+  }
 };
 
 export default DashboardHome;

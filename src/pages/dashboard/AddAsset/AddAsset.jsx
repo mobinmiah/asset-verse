@@ -12,7 +12,6 @@ const AddAsset = () => {
   const axiosSecure = useAxiosSecure();
   const navigate = useNavigate();
 
-  // -------------------- FORM --------------------
   const {
     register,
     handleSubmit,
@@ -20,7 +19,6 @@ const AddAsset = () => {
     formState: { errors },
   } = useForm();
 
-  // -------------------- FETCH HR DATA --------------------
   const { data: userHR = [] } = useQuery({
     queryKey: ["userHR"],
     queryFn: async () => {
@@ -29,7 +27,6 @@ const AddAsset = () => {
     },
   });
 
-  // -------------------- SET DEFAULT VALUES --------------------
   useEffect(() => {
     if (user && userHR.length) {
       const currentHR = userHR.find((hr) => hr.email === user.email);
@@ -41,7 +38,6 @@ const AddAsset = () => {
     }
   }, [user, userHR, setValue]);
 
-  // -------------------- SUBMIT --------------------
   const handleAddAsset = async (data) => {
     const asset = {
       productName: data.productName,
@@ -51,7 +47,7 @@ const AddAsset = () => {
       availableQuantity: Number(data.productQuantity),
       hrEmail: data.hrEmail,
       companyName: data.companyName,
-      dateAdded: new Date(),
+      createdAt: new Date(),
     };
 
     try {
@@ -71,7 +67,7 @@ const AddAsset = () => {
         <title>Add Asset | AssetVerse</title>
       </Helmet>
 
-      <h1 className="text-3xl font-bold mb-6">Add New Asset</h1>
+      <h2 className="text-3xl font-bold mb-6 text-center text-primary">Add New Asset</h2>
 
       <div className="card bg-base-100 shadow-lg rounded-xl">
         <form
@@ -83,7 +79,7 @@ const AddAsset = () => {
             <label className="label">Product Name</label>
             <input
               {...register("productName", { required: true })}
-              className="input w-full"
+              className="input"
               placeholder="Laptop, Chair, Monitor"
             />
             {errors.productName && (
@@ -96,7 +92,7 @@ const AddAsset = () => {
             <label className="label">Product Image URL</label>
             <input
               {...register("productImage", { required: true })}
-              className="input w-full"
+              className="input"
               placeholder="https://image-url.com"
             />
             {errors.productImage && (
@@ -109,7 +105,7 @@ const AddAsset = () => {
             <label className="label">Product Type</label>
             <select
               {...register("productType", { required: true })}
-              className="select w-full"
+              className="select w-full border-primary outline-none"
             >
               <option value="">Select Type</option>
               <option value="Returnable">Returnable</option>
@@ -126,7 +122,7 @@ const AddAsset = () => {
             <input
               type="number"
               {...register("productQuantity", { required: true, min: 1 })}
-              className="input w-full"
+              className="input"
               placeholder="Quantity"
             />
             {errors.productQuantity && (
@@ -142,7 +138,7 @@ const AddAsset = () => {
             <input
               type="email"
               {...register("hrEmail")}
-              className="input w-full"
+              className="input"
               readOnly
             />
           </div>
@@ -152,7 +148,7 @@ const AddAsset = () => {
             <label className="label">Company Name</label>
             <input
               {...register("companyName", { required: true })}
-              className="input w-full"
+              className="input"
               readOnly
             />
           </div>

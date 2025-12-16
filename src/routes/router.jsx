@@ -9,6 +9,10 @@ import PrivateRoute from "../routes/PrivateRoute";
 import DashboardLayout from "../layouts/DashboardLayout";
 import DashboardHome from "../pages/dashboard/DashboardHome/DashboardHome";
 import AddAsset from "../pages/dashboard/AddAsset/AddAsset";
+import AssetList from "../pages/dashboard/AssetList/AssetList";
+import UpgradePackage from "../pages/dashboard/UpgradePackage/UpgradePackage";
+import AllRequests from "../pages/dashboard/AllRequests/AllRequests";
+import AllEmployees from "../pages/dashboard/AllEmployees/AllEmployees";
 
 export const router = createBrowserRouter([
   {
@@ -52,9 +56,25 @@ export const router = createBrowserRouter([
         Component: DashboardHome,
       },
       {
-        path:'add-asset',
-        Component:AddAsset
-      }
+        path: "add-asset",
+        Component: AddAsset,
+      },
+      {
+        path: "asset-list",
+        Component: AssetList,
+      },
+      {
+        path: "all-requests",
+        Component: AllRequests,
+      },
+      {
+        path: "all-employees",
+        Component: AllEmployees,
+      },
+      {
+        path: "upgrade-package",
+        Component: UpgradePackage,
+      },
     ],
   },
 ]);

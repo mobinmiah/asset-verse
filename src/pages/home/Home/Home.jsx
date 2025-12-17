@@ -4,9 +4,9 @@ import Packages from "../Packages/Packages";
 import About from "../About/About";
 import Banner from "../Banner/Banner";
 import HowItWorks from "../HowItWorks/HowItWorks";
-import RoleBenefits from "../RoleBenefits/RoleBenefits";
 import SecurityTrust from "../SecurityTrust/SecurityTrust";
 import Stats from "../Stats/Stats";
+import RoleBasedBenefits from "../RoleBasedBenefits/RoleBasedBenefits";
 
 const Home = () => {
   return (
@@ -18,9 +18,9 @@ const Home = () => {
 
       <About></About>
       <HowItWorks></HowItWorks>
-      <Packages></Packages>
-      <RoleBenefits></RoleBenefits>
       <SecurityTrust></SecurityTrust>
+      <Packages></Packages>
+      <RoleBasedBenefits></RoleBasedBenefits>
       <Stats></Stats>
     </div>
   );

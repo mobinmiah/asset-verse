@@ -23,7 +23,6 @@ const Stats = () => {
   return (
     <section className="py-14 sm:py-16 lg:py-20 px-4 sm:px-8 lg:px-12 rounded-lg shadow-sm shadow-neutral bg-base-100">
       <div className="max-w-7xl mx-auto text-center">
-        {/* Section Header */}
         <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-primary mb-4">
           Trusted by Growing Organizations
         </h2>
@@ -31,8 +30,6 @@ const Stats = () => {
           AssetVerse helps organizations manage assets efficiently with
           accuracy, transparency, and confidence.
         </p>
-
-        {/* Stats Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {stats.map((stat, index) => (
             <div

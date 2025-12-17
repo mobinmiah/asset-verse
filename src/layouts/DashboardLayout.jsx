@@ -14,14 +14,12 @@ import { VscGitPullRequestNewChanges } from "react-icons/vsc";
 const DashboardLayout = () => {
   const { user, logOut } = useAuth();
   const photo = user?.photoURL || user?.providerData?.[0]?.photoURL || "";
-  const { role, roleLoading } = useRole();
+  const { role} = useRole();
 
   const handleLogout = () => {
     logOut();
   };
-  if (roleLoading) {
-    return <Loading></Loading>;
-  }
+
   return (
     <div className="drawer lg:drawer-open">
       <input id="my-drawer-4" type="checkbox" className="drawer-toggle" />

@@ -7,6 +7,7 @@ import useAxios from "../../../hooks/useAxios";
 import { FaEye, FaEyeSlash } from "react-icons/fa6";
 
 const RegisterEmployee = () => {
+
   const axios = useAxios();
   const navigate = useNavigate();
   const { registerUser, updateUserProfile } = useAuth();
@@ -24,17 +25,18 @@ const RegisterEmployee = () => {
       await registerUser(data.email, data.password);
       await updateUserProfile({
         displayName: data.name,
-        photoURL: data.companyLogo,
+        photoURL: data.photoURL,
       });
-      const hrInfo = {
+      const employeeInfo = {
         name: data.name,
         email: data.email,
+        photo: data.photoURL,
         role: "employee",
         dateOfBirth: data.dateOfBirth,
         createdAt: new Date(),
       };
 
-      const res = await axios.post("/users", hrInfo);
+      const res = await axios.post("/users", employeeInfo);
       console.log("User saved:", res.data);
       navigate(location?.state || "/");
     } catch (error) {
@@ -48,7 +50,9 @@ const RegisterEmployee = () => {
         <title>Register | AssetVerse</title>
       </Helmet>
       <div className="card bg-base-100 w-full max-w-sm sm:max-w-md shadow-lg shadow-neutral rounded-xl p-6">
-        <h2>Register as Employee</h2>
+        <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-primary text-center">
+          Register as Employee
+        </h2>
         <p className="text-center mt-1">
           or Register as{" "}
           <Link to="/register-hr" className="link text-secondary">
@@ -66,7 +70,7 @@ const RegisterEmployee = () => {
               {" "}
               <label className="label">Name</label>
               <input
-                {...register("name")}
+                {...register("name", { required: true })}
                 type="text"
                 className="input"
                 placeholder="Full Name"
@@ -80,7 +84,7 @@ const RegisterEmployee = () => {
               {" "}
               <label className="label">Email</label>
               <input
-                {...register("email")}
+                {...register("email", { required: true })}
                 type="email"
                 className="input"
                 placeholder="Your Email"
@@ -89,12 +93,28 @@ const RegisterEmployee = () => {
                 <p className={`font-medium text-error!`}>Email is Required</p>
               )}
             </div>
+            {/* photo url */}
+            <div>
+              {" "}
+              <label className="label">Photo Url</label>
+              <input
+                {...register("photoURL" ,{required:true})}
+                type="text"
+                className="input"
+                placeholder="Photo Url"
+              />{" "}
+              {errors.photoURL?.type === "required" && (
+                <p className={`font-medium text-error!`}>
+                  Photo Url is Required
+                </p>
+              )}
+            </div>
 
             {/* password */}
             <div>
               <label className="label">Password</label>
               <input
-                {...register("password")}
+                {...register("password",{required:true})}
                 type={passType ? "text" : "password"}
                 className="input"
                 placeholder="Password"
@@ -115,7 +135,7 @@ const RegisterEmployee = () => {
             <div>
               <label className="label">Date of Birth</label>
               <input
-                {...register("dateOfBirth")}
+                {...register("dateOfBirth",{required:true})}
                 type="date"
                 className="input"
               />

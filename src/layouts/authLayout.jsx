@@ -1,14 +1,16 @@
-import React from 'react';
-import Navbar from '../components/Navbar/Navbar';
-import { Outlet } from 'react-router';
-import Footer from '../components/Footer/Footer';
+import React from "react";
+import { Outlet } from "react-router";
+import Footer from "../components/Footer/Footer";
+import Navbar from "../components/NavBar/NavBar";
 
-const authLayout = () => {
-    return <div className="max-w-11/12 md:max-w-10/12 mx-auto">
-        <Navbar></Navbar>
-        <Outlet></Outlet>
-        <Footer></Footer>
-    </div>;
+const AuthLayout = () => {
+  return (
+    <div className="max-w-11/12 md:max-w-10/12 mx-auto">
+      <Navbar></Navbar>
+      <Outlet></Outlet>
+      <Footer></Footer>
+    </div>
+  );
 };
 
-export default authLayout;
+export default AuthLayout;

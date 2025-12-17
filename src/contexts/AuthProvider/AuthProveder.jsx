@@ -9,7 +9,7 @@ import React, { useEffect, useState } from "react";
 import { auth } from "../../firebase/firebase.config";
 import { AuthContext } from "../AuthContext/AuthContext";
 
-const AuthProveder = ({ children }) => {
+const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -28,10 +28,10 @@ const AuthProveder = ({ children }) => {
     return signOut(auth);
   };
 
-  const updateUserProfile=(profile)=>{
-    setLoading(true)
+  const updateUserProfile = (profile) => {
+    setLoading(true);
     return updateProfile(auth.currentUser, profile);
-  }
+  };
 
   useEffect(() => {
     const unSubscribe = onAuthStateChanged(auth, (currentUser) => {
@@ -49,10 +49,10 @@ const AuthProveder = ({ children }) => {
     registerUser,
     loginUser,
     logOut,
-    updateUserProfile
+    updateUserProfile,
   };
 
   return <AuthContext value={authInfo}>{children}</AuthContext>;
 };
 
-export default AuthProveder;
+export default AuthProvider;

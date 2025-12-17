@@ -141,7 +141,6 @@ const AssetList = () => {
                           <input
                             {...register("productName")}
                             className="input input-bordered w-full"
-                            
                           />
                         </div>
 

@@ -58,7 +58,9 @@ const RegisterHR = () => {
         <title>Register | AsserVerse</title>
       </Helmet>
       <div className="card bg-base-100 w-full max-w-sm sm:max-w-md shadow-lg shadow-neutral rounded-xl p-6">
-        <h2>Register as HR</h2>
+        <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-primary text-center">
+          Register as HR
+        </h2>
 
         <p className="text-center mt-1">
           or Register as{" "}

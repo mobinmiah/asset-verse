@@ -1,7 +1,7 @@
 import { createBrowserRouter } from "react-router";
 import RootLayout from "../layouts/RootLayout";
 import Home from "../pages/home/Home/Home";
-import authLayout from "../layouts/authLayout";
+import AuthLayout from "../layouts/AuthLayout";
 import Login from "../pages/authPages/Login/Login";
 import RegistyerEmployee from "../pages/authPages/Register/RegistyerEmployee";
 import RegisterHR from "../pages/authPages/Register/RegisterHR";
@@ -27,7 +27,7 @@ export const router = createBrowserRouter([
   },
   {
     path: "/",
-    Component: authLayout,
+    Component: AuthLayout,
     children: [
       {
         path: "login",
@@ -57,7 +57,7 @@ export const router = createBrowserRouter([
       },
       {
         path: "add-asset",
-        Component: AddAsset,
+        element:
       },
       {
         path: "asset-list",

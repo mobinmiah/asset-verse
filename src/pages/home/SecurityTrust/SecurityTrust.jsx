@@ -26,7 +26,6 @@ const SecurityTrust = () => {
   return (
     <section className="py-14 sm:py-16 lg:py-20 px-4 sm:px-8 lg:px-12 rounded-lg shadow-sm shadow-neutral bg-base-100">
       <div className="max-w-7xl mx-auto text-center">
-        {/* Header */}
         <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-primary mb-4">
           Security & Trust
         </h2>
@@ -35,7 +34,6 @@ const SecurityTrust = () => {
           protect your organization’s assets and data.
         </p>
 
-        {/* Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {securityItems.map((item, index) => (
             <div

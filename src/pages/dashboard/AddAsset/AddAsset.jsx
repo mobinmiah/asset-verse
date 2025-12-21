@@ -19,6 +19,7 @@ const AddAsset = () => {
     formState: { errors },
   } = useForm();
 
+  // Fetch all HR users
   const { data: userHR = [] } = useQuery({
     queryKey: ["userHR"],
     queryFn: async () => {
@@ -27,13 +28,14 @@ const AddAsset = () => {
     },
   });
 
+  // Automatically populate HR info into form
   useEffect(() => {
     if (user && userHR.length) {
       const currentHR = userHR.find((hr) => hr.email === user.email);
-
       if (currentHR) {
         setValue("hrEmail", currentHR.email);
         setValue("companyName", currentHR.companyName);
+        setValue("companyLogo", currentHR.companyLogo || "");
       }
     }
   }, [user, userHR, setValue]);
@@ -46,7 +48,7 @@ const AddAsset = () => {
       productQuantity: Number(data.productQuantity),
       hrEmail: data.hrEmail,
       companyName: data.companyName,
-      companyLogo: userHR[1].companyLogo,
+      companyLogo: data.companyLogo,
       createdAt: new Date(),
     };
 
@@ -80,7 +82,7 @@ const AddAsset = () => {
           <div>
             <label className="label">Product Name</label>
             <input
-              {...register("productName")}
+              {...register("productName", { required: true })}
               className="input"
               placeholder="Laptop, Chair, Monitor"
             />
@@ -93,7 +95,7 @@ const AddAsset = () => {
           <div>
             <label className="label">Product Image URL</label>
             <input
-              {...register("productImage")}
+              {...register("productImage", { required: true })}
               className="input"
               placeholder="https://image-url.com"
             />
@@ -106,7 +108,7 @@ const AddAsset = () => {
           <div>
             <label className="label">Product Type</label>
             <select
-              {...register("productType")}
+              {...register("productType", { required: true })}
               className="select w-full border-primary outline-none"
             >
               <option value="">Select Type</option>
@@ -150,6 +152,9 @@ const AddAsset = () => {
             <label className="label">Company Name</label>
             <input {...register("companyName")} className="input" readOnly />
           </div>
+
+          {/* Hidden field for companyLogo */}
+          <input type="hidden" {...register("companyLogo")} />
 
           <button className="btn btn-primary w-full mt-4">Add Asset</button>
         </form>

@@ -176,7 +176,7 @@ const DashboardLayout = () => {
                 </li>
                 <li>
                   <NavLink
-                    to="/dashboard/upgrade-package"
+                    to="/dashboard/upgrade-package-hr"
                     className=" is-drawer-close:tooltip is-drawer-close:tooltip-right"
                     data-tip="Upgrade Your Package"
                   >

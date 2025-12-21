@@ -1,13 +1,12 @@
-    import React from 'react';
-    import Packages from '../../home/Packages/Packages';
+import React from "react";
+import HrPackages from "../HrPackages/HrPackages";
 
-    const UpgradePackage = () => {
-        return (
-            <div>
-            
-                <Packages></Packages>
-            </div>
-        );
-    };
+const UpgradePackage = () => {
+  return (
+    <div>
+      <HrPackages></HrPackages>
+    </div>
+  );
+};
 
-    export default UpgradePackage;
+export default UpgradePackage;

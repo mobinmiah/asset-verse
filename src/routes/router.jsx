@@ -18,6 +18,8 @@ import EmployeeRoute from "./EmployeeRoute";
 import RequestAnAsset from "../pages/dashboard/RequestAnAsset/RequestAnAsset";
 import ErrorPage from "../pages/ErrorPage/ErrorPage";
 import MyProfile from "../pages/dashboard/MyProfile/MyProfile";
+import PaymentSuccess from "../pages/dashboard/PaymentSuccess/PaymentSuccess";
+import PaymentCancelled from "../pages/dashboard/PaymentCancelled/PaymentCancelled";
 
 export const router = createBrowserRouter([
   {
@@ -94,12 +96,21 @@ export const router = createBrowserRouter([
         ),
       },
       {
-        path: "upgrade-package",
+        path: "upgrade-package-hr",
         element: (
           <HrRoute>
             <UpgradePackage></UpgradePackage>
           </HrRoute>
         ),
+      },
+
+      {
+        path: "payment-success",
+        Component: PaymentSuccess,
+      },
+      {
+        path:'payment-cancelled',
+        Component: PaymentCancelled
       },
       {
         path: "request-asset",

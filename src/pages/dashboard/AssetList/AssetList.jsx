@@ -24,7 +24,7 @@ const AssetList = () => {
       const res = await axiosSecure.get(`/assets?searchText=${searchQuery}`);
       return res.data;
     },
-    enabled: !!searchQuery || searchQuery === "", // initial load allowed
+    enabled: !!searchQuery || searchQuery === "",
     keepPreviousData: true,
     staleTime: 1000 * 5,
     refetchOnWindowFocus: false,
@@ -88,9 +88,16 @@ const AssetList = () => {
       Swal.fire("Deleted!", "Asset has been deleted.", "success");
     }
   };
-  const handleSearch = () => {
-    setSearchQuery(searchText.trim());
-  };
+const handleSearch = () => {
+  const trimmed = searchText.trim();
+  setSearchQuery(trimmed);
+};
+
+React.useEffect(() => {
+  if (searchText === "") {
+    setSearchQuery("");
+  }
+}, [searchText]);
 
   if (isLoading) return <Loading />;
 
@@ -139,7 +146,7 @@ const AssetList = () => {
                   No assets found
                 </td>
               </tr>
-            )}  
+            )}
 
             {assets.map((asset, index) => (
               <tr key={asset._id}>
@@ -215,7 +222,11 @@ const AssetList = () => {
             />
 
             <div className="flex gap-2">
-              <button type="submit" className="btn btn-primary flex-1">
+              <button
+                onClick={() => modalRef.current.close()}
+                type="submit"
+                className="btn btn-primary flex-1"
+              >
                 Update
               </button>
               <button

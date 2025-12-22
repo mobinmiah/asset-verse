@@ -6,6 +6,7 @@ import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import useAuth from "../../../hooks/useAuth";
 import Swal from "sweetalert2";
 import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
 
 const AddAsset = () => {
   const { user } = useAuth();
@@ -19,44 +20,53 @@ const AddAsset = () => {
     formState: { errors },
   } = useForm();
 
-  // Fetch all HR users
-  const { data: userHR = [] } = useQuery({
-    queryKey: ["userHR"],
+  const { data: currentHR } = useQuery({
+    queryKey: ["currentHR", user?.email],
+    enabled: !!user?.email,
     queryFn: async () => {
-      const res = await axiosSecure.get("/users");
+      const res = await axiosSecure.get(`/users/${user.email}`);
       return res.data;
     },
   });
 
-  // Automatically populate HR info into form
   useEffect(() => {
-    if (user && userHR.length) {
-      const currentHR = userHR.find((hr) => hr.email === user.email);
-      if (currentHR) {
-        setValue("hrEmail", currentHR.email);
-        setValue("companyName", currentHR.companyName);
-        setValue("companyLogo", currentHR.companyLogo || "");
-      }
+    if (currentHR) {
+      setValue("hrEmail", currentHR.email);
+      setValue("companyName", currentHR.companyName);
+      setValue("companyLogo", currentHR.companyLogo || "");
     }
-  }, [user, userHR, setValue]);
+  }, [currentHR, setValue]);
 
   const handleAddAsset = async (data) => {
-    const asset = {
-      productName: data.productName,
-      productImage: data.productImage,
-      productType: data.productType,
-      productQuantity: Number(data.productQuantity),
-      hrEmail: data.hrEmail,
-      companyName: data.companyName,
-      companyLogo: data.companyLogo,
-      createdAt: new Date(),
-    };
-
     try {
+      const profileImg = data.productImage[0];
+      const formData = new FormData();
+      formData.append("image", profileImg);
+
+      const image_URL_API = `https://api.imgbb.com/1/upload?expiration=600&key=${
+        import.meta.env.VITE_photo_host_key
+      }`;
+
+      const imgRes = await axios.post(image_URL_API, formData);
+      const photoURL = imgRes.data.data.url;
+
+      // 📦 asset object
+      const asset = {
+        productName: data.productName,
+        productImage: photoURL,
+        productType: data.productType,
+        productQuantity: Number(data.productQuantity),
+        hrEmail: data.hrEmail,
+        companyName: data.companyName,
+        companyLogo: data.companyLogo,
+        createdAt: new Date(),
+      };
+
       const res = await axiosSecure.post("/assets", asset);
+
       if (res.data.insertedId) {
         Swal.fire("Success!", "Asset added successfully", "success");
-        navigate("/dashboard");
+        navigate("/dashboard/asset-list");
       }
     } catch (error) {
       Swal.fire("Error", "Failed to add asset", error);
@@ -93,14 +103,15 @@ const AddAsset = () => {
 
           {/* Product Image */}
           <div>
-            <label className="label">Product Image URL</label>
+            <label className="label">Product Image</label>
             <input
+              type="file"
+              accept="image/*"
               {...register("productImage", { required: true })}
-              className="input"
-              placeholder="https://image-url.com"
+              className="file-input file-input-bordered w-full"
             />
             {errors.productImage && (
-              <p className="text-error text-sm">Image URL is required</p>
+              <p className="text-error text-sm">Image is required</p>
             )}
           </div>
 
@@ -109,15 +120,12 @@ const AddAsset = () => {
             <label className="label">Product Type</label>
             <select
               {...register("productType", { required: true })}
-              className="select w-full border-primary outline-none"
+              className="select w-full border-primary"
             >
               <option value="">Select Type</option>
               <option value="Returnable">Returnable</option>
               <option value="Non-returnable">Non-returnable</option>
             </select>
-            {errors.productType && (
-              <p className="text-error text-sm">Product type is required</p>
-            )}
           </div>
 
           {/* Quantity */}
@@ -127,33 +135,12 @@ const AddAsset = () => {
               type="number"
               {...register("productQuantity", { required: true, min: 1 })}
               className="input"
-              placeholder="Quantity"
-            />
-            {errors.productQuantity && (
-              <p className="text-error text-sm">
-                Product quantity must be at least 1
-              </p>
-            )}
-          </div>
-
-          {/* HR Email */}
-          <div>
-            <label className="label">HR Email</label>
-            <input
-              type="email"
-              {...register("hrEmail")}
-              className="input"
-              readOnly
             />
           </div>
 
-          {/* Company Name */}
-          <div>
-            <label className="label">Company Name</label>
-            <input {...register("companyName")} className="input" readOnly />
-          </div>
-
-          {/* Hidden field for companyLogo */}
+          {/* Hidden HR fields */}
+          <input type="hidden" {...register("hrEmail")} />
+          <input type="hidden" {...register("companyName")} />
           <input type="hidden" {...register("companyLogo")} />
 
           <button className="btn btn-primary w-full mt-4">Add Asset</button>

@@ -88,7 +88,7 @@ export const router = createBrowserRouter([
         ),
       },
       {
-        path: "all-employees",
+        path: "my-employees",
         element: (
           <HrRoute>
             <AllEmployees></AllEmployees>

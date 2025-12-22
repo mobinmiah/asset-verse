@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import Loading from "../../../components/Loading/Loading";
 import { useForm } from "react-hook-form";
@@ -13,22 +13,20 @@ const AssetList = () => {
   const [searchQuery, setSearchQuery] = useState("");
 
   const { register, handleSubmit, setValue, reset } = useForm();
-  const {
-    data: assets = [],
-    isLoading,
+ const {
+   data: assets = [],
+   isLoading,
+   refetch,
+ } = useQuery({
+   queryKey: ["assets", searchQuery],
+   queryFn: async () => {
+     const res = await axiosSecure.get(`/assets?searchText=${searchQuery}`);
+     return res.data;
+   },
+   staleTime: 1000 * 5,
+   refetchOnWindowFocus: false,
+ });
 
-    refetch,
-  } = useQuery({
-    queryKey: ["assets", searchQuery],
-    queryFn: async () => {
-      const res = await axiosSecure.get(`/assets?searchText=${searchQuery}`);
-      return res.data;
-    },
-    enabled: !!searchQuery || searchQuery === "",
-    keepPreviousData: true,
-    staleTime: 1000 * 5,
-    refetchOnWindowFocus: false,
-  });
 
   const openEditModal = (asset) => {
     setSelectedAsset(asset);
@@ -89,11 +87,10 @@ const AssetList = () => {
     }
   };
 const handleSearch = () => {
-  const trimmed = searchText.trim();
-  setSearchQuery(trimmed);
+  setSearchQuery(searchText.trim());
 };
 
-React.useEffect(() => {
+useEffect(() => {
   if (searchText === "") {
     setSearchQuery("");
   }
@@ -165,13 +162,19 @@ React.useEffect(() => {
                   </div>
                 </td>
                 <td>{asset.productType}</td>
-                <td>{asset.productQuantity}</td>
+                <td
+                  className={
+                    asset.productQuantity === 0 ? "text-error font-bold" : ""
+                  }
+                >
+                  {asset.productQuantity}
+                </td>
                 <td>{new Date(asset.createdAt).toLocaleDateString()}</td>
 
                 <td className="space-x-2">
                   <button
                     onClick={() => openEditModal(asset)}
-                    className="btn btn-xs btn-primary"
+                    className="btn btn-xs btn-info"
                   >
                     Edit
                   </button>
@@ -201,11 +204,6 @@ React.useEffect(() => {
               {...register("productName", { required: true })}
               className="input"
               placeholder="Product Name"
-            />
-            <input
-              {...register("productImage", { required: true })}
-              className="input"
-              placeholder="Image URL"
             />
             <select
               {...register("productType")}

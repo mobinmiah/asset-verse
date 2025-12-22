@@ -2,7 +2,7 @@
 
 **Purpose:** Corporate Asset Management System  
 
-**Live URL:** [Add your deployed URL here]  
+**Live URL:** (https://asset-verse-by-mobin.netlify.app/)
 
 ---
 

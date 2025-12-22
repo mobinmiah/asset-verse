@@ -1,16 +1,36 @@
-# Asset Verse
+# AssetVerse
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**Purpose:** Corporate Asset Management System  
 
-Currently, two official plugins are available:
+**Live URL:** [Add your deployed URL here]  
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## React Compiler
+## Key Features
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **HR Dashboard**: View and manage company assets and employees.  
+- **Asset Management**:
+  - Add, edit, and delete assets
+  - Upload product images via ImgBB
+  - Track asset type, quantity, and company affiliation
+- **Employee Management**:
+  - View employees with photo, name, email, join date, and assets count
+  - Remove employees from team with confirmation
+- **Search Functionality**: Search assets and employees
+- **Responsive UI**: Built with TailwindCSS and DaisyUI
+- **Interactive Dialogs**: SweetAlert2 for confirmations and notifications
+- **React Query**: Handles data fetching and caching
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## NPM Packages Used
+
+- `react` – Core React libraries  
+- `react-router` – Frontend routing  
+- `react-hook-form` – Form management  
+- `@tanstack/react-query` – Data fetching and caching  
+- `axios` – HTTP requests  
+- `sweetalert2` – Alert and confirmation dialogs  
+- `tailwindcss` & `daisyui` – Styling and UI components  
+- `react-helmet` – Dynamic page titles  
+- `vite` – Build tool

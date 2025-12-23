@@ -169,9 +169,7 @@ const DashboardLayout = () => {
                     data-tip="My Employees"
                   >
                     <FaUsers />
-                    <span className="is-drawer-close:hidden">
-                      My Employees
-                    </span>
+                    <span className="is-drawer-close:hidden">My Employees</span>
                   </NavLink>
                 </li>
                 <li>
@@ -192,6 +190,14 @@ const DashboardLayout = () => {
             {role === "employee" && (
               <>
                 <li>
+                  <NavLink
+                    to="/dashboard/my-assetes"
+                    className=" is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                    data-tip="My Assets"
+                  >
+                    <AiFillProduct />
+                    <span className="is-drawer-close:hidden">My Assets</span>
+                  </NavLink>
                   <NavLink
                     to="/dashboard/request-asset"
                     className=" is-drawer-close:tooltip is-drawer-close:tooltip-right"

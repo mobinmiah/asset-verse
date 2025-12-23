@@ -20,6 +20,7 @@ import ErrorPage from "../pages/ErrorPage/ErrorPage";
 import MyProfile from "../pages/dashboard/MyProfile/MyProfile";
 import PaymentSuccess from "../pages/dashboard/PaymentSuccess/PaymentSuccess";
 import PaymentCancelled from "../pages/dashboard/PaymentCancelled/PaymentCancelled";
+import MyAssets from "../pages/dashboard/MyAssets/MyAssets";
 
 export const router = createBrowserRouter([
   {
@@ -109,8 +110,12 @@ export const router = createBrowserRouter([
         Component: PaymentSuccess,
       },
       {
-        path:'payment-cancelled',
-        Component: PaymentCancelled
+        path: "payment-cancelled",
+        Component: PaymentCancelled,
+      },
+      {
+        path: "my-assetes",
+        element: <EmployeeRoute><MyAssets></MyAssets></EmployeeRoute>
       },
       {
         path: "request-asset",

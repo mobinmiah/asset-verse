@@ -21,6 +21,7 @@ import MyProfile from "../pages/dashboard/MyProfile/MyProfile";
 import PaymentSuccess from "../pages/dashboard/PaymentSuccess/PaymentSuccess";
 import PaymentCancelled from "../pages/dashboard/PaymentCancelled/PaymentCancelled";
 import MyAssets from "../pages/dashboard/MyAssets/MyAssets";
+import MyTeam from "../pages/dashboard/MyTeam/MyTeam";
 
 export const router = createBrowserRouter([
   {
@@ -126,6 +127,14 @@ export const router = createBrowserRouter([
         element: (
           <EmployeeRoute>
             <RequestAnAsset></RequestAnAsset>
+          </EmployeeRoute>
+        ),
+      },
+      {
+        path: "my-team",
+        element: (
+          <EmployeeRoute>
+            <MyTeam></MyTeam>
           </EmployeeRoute>
         ),
       },

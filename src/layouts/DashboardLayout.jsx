@@ -9,11 +9,15 @@ import { FaListOl, FaUsers } from "react-icons/fa6";
 import Logo from "../components/Logo/Logo";
 import { IoLogOut } from "react-icons/io5";
 import { GiArmorUpgrade } from "react-icons/gi";
-import { VscGitPullRequestNewChanges, VscRequestChanges } from "react-icons/vsc";
+import {
+  VscGitPullRequestNewChanges,
+  VscRequestChanges,
+} from "react-icons/vsc";
 import { AiFillProduct } from "react-icons/ai";
 import { CgProfile } from "react-icons/cg";
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../hooks/useAxiosSecure";
+import { RiTeamLine } from "react-icons/ri";
 
 const DashboardLayout = () => {
   const { user, LogOut } = useAuth();
@@ -198,6 +202,8 @@ const DashboardLayout = () => {
                     <AiFillProduct />
                     <span className="is-drawer-close:hidden">My Assets</span>
                   </NavLink>
+                </li>
+                <li>
                   <NavLink
                     to="/dashboard/request-asset"
                     className=" is-drawer-close:tooltip is-drawer-close:tooltip-right"
@@ -207,6 +213,16 @@ const DashboardLayout = () => {
                     <span className="is-drawer-close:hidden">
                       Request an Asset
                     </span>
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink
+                    to="/dashboard/my-team"
+                    className=" is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                    data-tip="My Team"
+                  >
+                    <RiTeamLine />
+                    <span className="is-drawer-close:hidden">My Team</span>
                   </NavLink>
                 </li>
               </>

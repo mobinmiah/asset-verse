@@ -28,7 +28,7 @@ const HrPackages = () => {
       window.location.assign(res.data.url);
     } catch (error) {
       console.error(error);
-      Swal.fire("Payment failed", "Try again later", "error");
+      Swal.fire("Payment failed", "Try again later", error);
     }
   };
 

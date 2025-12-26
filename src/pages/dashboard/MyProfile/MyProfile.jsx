@@ -64,8 +64,12 @@ const MyProfile = () => {
                   />
                   <InfoRow
                     label="Employees Used"
-                    value={`${profile.currentEmployees}/${profile.packageLimit}`}
+                    value={`${profile.currentEmployees}`}
                     to="/dashboard/my-employees"
+                  />
+                  <InfoRow
+                    label="Package Limit"
+                    value={`${profile.packageLimit}`}
                   />
                   <InfoRow label="Subscription" value={profile.subscription} />
                   <InfoRow

@@ -9,7 +9,7 @@ import Loading from "../Loading/Loading";
 import useRole from "../../hooks/useRole";
 
 const Navbar = () => {
-  const { role, roleLoading } = useRole();
+  const { role } = useRole();
   const { user, LogOut } = useAuth();
   const axiosSecure = useAxiosSecure();
   const { data: profile = {}, isLoading } = useQuery({
@@ -91,7 +91,7 @@ const Navbar = () => {
     </>
   );
 
-  if (isLoading || roleLoading) {
+  if (isLoading ) {
     return <Loading></Loading>;
   }
   return (

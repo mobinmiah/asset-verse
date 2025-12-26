@@ -124,7 +124,7 @@ useEffect(() => {
       </div>
 
       <div className="overflow-x-auto">
-        <table className="tabtable table-zebra w-fullle">
+        <table className="table table-zebra w-fullle">
           <thead>
             <tr>
               <th>#</th>
